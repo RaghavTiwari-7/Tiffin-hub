@@ -45,10 +45,18 @@ function CreateTiffin() {
       navigate("/owner");
     } catch (error) {
       console.log(error);
-
+    
+      if (
+        error.response?.status === 404 &&
+        error.response?.data?.message === "Provider profile not found"
+      ) {
+        navigate("/create-provider");
+        return;
+      }
+    
       alert(
         error.response?.data?.message ||
-          "Failed to create tiffin"
+        "Failed to create tiffin"
       );
     } finally {
       setLoading(false);
