@@ -10,14 +10,22 @@ const tiffinRoutes = require("./routes/tiffinRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://tiffin-hub-omega.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 app.use("/api/providers", providerRoutes);
 app.use("/api/tiffins", tiffinRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use(express.json());
+
 
 app.get("/", (req, res) => {
   res.json({
